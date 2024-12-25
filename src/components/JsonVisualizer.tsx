@@ -5,7 +5,7 @@ import ReactFlow, {
   MiniMap,
   Controls,
   ReactFlowProvider,
-  Position, // Import Position from reactflow
+  Position,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -17,33 +17,57 @@ const JsonVisualizer: React.FC<JsonVisualizerProps> = ({ data }) => {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
+  // Function to generate node colors and additional data
+  const getNodeStyles = (value: unknown) => {
+    if (typeof value === "string")
+      return { backgroundColor: "#a5d6a7", color: "#1b5e20" };
+    if (typeof value === "number")
+      return { backgroundColor: "#ffe0b2", color: "#bf360c" };
+    if (Array.isArray(value))
+      return { backgroundColor: "#b3e5fc", color: "#0288d1" };
+    if (typeof value === "object")
+      return { backgroundColor: "#e1bee7", color: "#8e24aa" };
+    return { backgroundColor: "#ffffff", color: "#000000" };
+  };
+
+  // Recursive function to traverse JSON data
   const traverseJson = (
     obj: Record<string, unknown>,
     parentId: string | null = null,
     depth: number = 0,
-    column: number = 0, // Controls horizontal layout (left to right)
-    yOffset: number = 0 // Controls vertical positioning within each column
+    column: number = 0,
+    yOffset: number = 0
   ) => {
     Object.entries(obj).forEach(([key, value], index) => {
       const id = `${parentId ? `${parentId}-` : ""}${key}-${depth}-${index}`;
 
-      // Create node with position and side handles
+      // Create a node for each key
+      const nodeStyle = getNodeStyles(value);
       nodes.push({
         id,
-        data: { label: key },
+        data: {
+          label: `${key}: ${typeof value === "object" ? "Object" : value}`,
+        },
         position: { x: column * 300, y: yOffset },
-        sourcePosition: Position.Right, // Use Position enum for right side
-        targetPosition: Position.Left, // Use Position enum for left side
+        sourcePosition: Position.Right,
+        targetPosition: Position.Left,
+        style: {
+          ...nodeStyle,
+          padding: "10px",
+          borderRadius: "5px",
+          fontWeight: "bold",
+          width: "150px",
+          textAlign: "center",
+        },
       });
 
-      // Create edges for hierarchical relationships (side to side)
+      // Create edges between parent and child nodes
       if (parentId) {
         edges.push({ id: `e-${parentId}-${id}`, source: parentId, target: id });
       }
 
-      yOffset += 100; // Spacing between nodes at the same level
+      yOffset += 100;
 
-      // Recurse if the value is an object or array
       if (value && typeof value === "object") {
         traverseJson(
           value as Record<string, unknown>,
@@ -51,12 +75,12 @@ const JsonVisualizer: React.FC<JsonVisualizerProps> = ({ data }) => {
           depth + 1,
           column + 1,
           yOffset
-        ); // Move to next column
+        );
       }
     });
   };
 
-  traverseJson(data); // Start traversing the JSON data
+  traverseJson(data); // Start parsing the JSON data
 
   return (
     <ReactFlowProvider>
@@ -65,8 +89,8 @@ const JsonVisualizer: React.FC<JsonVisualizerProps> = ({ data }) => {
           nodes={nodes}
           edges={edges}
           fitView
-          minZoom={0.5} // Optional: Set minimum zoom level
-          maxZoom={2} // Optional: Set maximum zoom level
+          minZoom={0.5}
+          maxZoom={2}
         >
           <MiniMap />
           <Controls />
