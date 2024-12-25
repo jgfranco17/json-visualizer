@@ -1,5 +1,8 @@
 {
-  "name": "John Doe",
+  "name": {
+    "first": "John",
+    "last": "Doe"
+  },
   "age": 30,
   "address": {
     "street": "123 Main St",

@@ -1,0 +1,111 @@
+{
+  "make": "Toyota",
+  "model": "Corolla",
+  "year": 2024,
+  "engine": {
+    "type": "Inline-4",
+    "displacement": "1.8L",
+    "horsepower": 139,
+    "torque": "126 lb-ft",
+    "fuelType": "Gasoline",
+    "fuelEconomy": {
+      "city": "30 mpg",
+      "highway": "38 mpg",
+      "combined": "33 mpg"
+    },
+    "components": [
+      {
+        "component": "Timing Belt",
+        "lastReplaced": "2022-05-01"
+      },
+      {
+        "component": "Alternator",
+        "lastReplaced": "2021-08-15"
+      }
+    ]
+  },
+  "dimensions": {
+    "length": "4630 mm",
+    "width": "1780 mm",
+    "height": "1435 mm",
+    "wheelbase": "2700 mm",
+    "groundClearance": "160 mm"
+  },
+  "safetyFeatures": {
+    "airbags": {
+      "front": 2,
+      "side": 2,
+      "curtain": 2
+    },
+    "brakes": {
+      "type": "Disc",
+      "ABS": true,
+      "eBrake": true
+    },
+    "assistiveTechnologies": [
+      {
+        "name": "Lane Departure Warning",
+        "enabled": true
+      },
+      {
+        "name": "Automatic Emergency Braking",
+        "enabled": true
+      },
+      {
+        "name": "Adaptive Cruise Control",
+        "enabled": false
+      }
+    ]
+  },
+  "features": {
+    "comfort": {
+      "airConditioning": true,
+      "heatedSeats": true,
+      "sunroof": false
+    },
+    "entertainment": {
+      "audioSystem": {
+        "brand": "JBL",
+        "speakers": 8,
+        "bluetooth": true,
+        "usbPorts": 2
+      },
+      "screen": {
+        "size": "8 inches",
+        "type": "Touchscreen",
+        "navigation": true
+      }
+    }
+  },
+  "ownerHistory": [
+    {
+      "owner": "John Doe",
+      "purchaseDate": "2022-06-15",
+      "location": "California",
+      "serviceRecords": [
+        {
+          "service": "Oil Change",
+          "date": "2023-01-20",
+          "mileage": 25000
+        },
+        {
+          "service": "Tire Rotation",
+          "date": "2023-06-10",
+          "mileage": 30000
+        }
+      ]
+    },
+    {
+      "owner": "Jane Smith",
+      "purchaseDate": "2024-03-10",
+      "location": "Texas",
+      "serviceRecords": [
+        {
+          "service": "Brake Check",
+          "date": "2024-04-05",
+          "mileage": 5000
+        }
+      ]
+    }
+  ]
+}
